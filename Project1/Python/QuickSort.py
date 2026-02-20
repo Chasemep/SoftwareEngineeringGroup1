@@ -1,10 +1,22 @@
+"""
+ Name: Alex Bryant
+ ID: 2
+ Professor: Dr. Dai
+ Course: CS416 - Software Engineering
+ Date Feb 19, 2026
+
+ File: QuickSort.py
+
+"""
+
+
 def quick_sort(arr):
-	if len(arr) <= 1:
-		return arr
-	pivot = arr[len(arr) // 2]
-	left = [x for x in arr if x < pivot]
-	middle = [x for x in arr if x == pivot]
-	right = [x for x in arr if x > pivot]
-	return quick_sort(left) + middle + quick_sort(right)
+    if len(arr) <= 1:
+        return arr
+    pivot = arr[len(arr) // 2]
+    left = [x for x in arr if x < pivot]
+    middle = [x for x in arr if x == pivot]
+    right = [x for x in arr if x > pivot]
+    return quick_sort(left) + middle + quick_sort(right)
 
 print(quick_sort([64, 34, 25, 12, 22, 11, 90]))
