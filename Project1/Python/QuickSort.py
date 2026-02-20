@@ -1,3 +1,14 @@
+"""
+ Name: Alex Bryant
+ ID: 2
+ Professor: Dr. Dai
+ Course: CS416 - Software Engineering
+ Date: Feb 19, 2026
+
+ File: QuickSort.py
+
+ """
+
 def quick_sort(arr):
 	if len(arr) <= 1:
 		return arr
