@@ -1,3 +1,15 @@
+"""
+ Name: Alex Bryant
+ ID: 2
+ Professor: Dr. Dai
+ Course: CS416 - Software Engineering
+ Date: Feb 19, 2026
+
+ File: BubbleSort.py
+
+ """
+
+
 def bubble_sort(arr):
 	n = len(arr)
 	for i in range(n):
