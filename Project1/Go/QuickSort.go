@@ -12,6 +12,8 @@
 
 package main
 
+import "fmt"
+
 // QuickSort sorts the slice in ascending order (in-place).
 func QuickSort(a []int) {
 	if len(a) <= 1 {
@@ -41,4 +43,10 @@ func partitionLomuto(a []int, lo, hi int) int {
 	}
 	a[i], a[hi] = a[hi], a[i]
 	return i
+}
+func main() {
+	test := []int{9, 3, 5, 1, 8, 2, 7, 4, 6}
+	fmt.Println("Before:", test)
+	QuickSort(test)
+	fmt.Println("After: ", test)
 }
