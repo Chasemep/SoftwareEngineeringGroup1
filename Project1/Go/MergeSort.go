@@ -12,6 +12,8 @@
 
 package main
 
+import "fmt"
+
 // MergeSort returns a NEW sorted slice in ascending order (does not modify input).
 func MergeSort(a []int) []int {
 	if len(a) <= 1 {
@@ -40,4 +42,11 @@ func merge(left, right []int) []int {
 	out = append(out, left[i:]...)
 	out = append(out, right[j:]...)
 	return out
+}
+func main() {
+	test := []int{9, 3, 5, 1, 8, 2, 7, 4, 6}
+	fmt.Println("Before:", test)
+	sorted := MergeSort(test)
+	fmt.Println("After: ", sorted)
+	fmt.Println("Original unchanged:", test)
 }
