@@ -12,6 +12,8 @@
 
 package main
 
+import "fmt"
+
 // BubbleSort sorts the slice in ascending order (in-place).
 func BubbleSort(a []int) {
 	n := len(a)
@@ -27,4 +29,10 @@ func BubbleSort(a []int) {
 			return
 		}
 	}
+}
+func main() {
+	test := []int{9, 3, 5, 1, 8, 2, 7, 4, 6}
+	fmt.Println("Before:", test)
+	BubbleSort(test)
+	fmt.Println("After: ", test)
 }
