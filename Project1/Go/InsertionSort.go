@@ -12,6 +12,8 @@
 
 package main
 
+import "fmt"
+
 // InsertionSort sorts the slice in ascending order (in-place).
 func InsertionSort(a []int) {
 	for i := 1; i < len(a); i++ {
@@ -23,4 +25,11 @@ func InsertionSort(a []int) {
 		}
 		a[j+1] = key
 	}
+}
+
+func main() {
+	test := []int{9, 3, 5, 1, 8, 2, 7, 4, 6}
+	fmt.Println("Before:", test)
+	InsertionSort(test)
+	fmt.Println("After: ", test)
 }
