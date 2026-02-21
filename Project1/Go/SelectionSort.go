@@ -12,6 +12,8 @@
 
 package main
 
+import "fmt"
+
 // SelectionSort sorts the slice in ascending order (in-place).
 func SelectionSort(a []int) {
 	n := len(a)
@@ -24,4 +26,10 @@ func SelectionSort(a []int) {
 		}
 		a[i], a[minIdx] = a[minIdx], a[i]
 	}
+}
+func main() {
+	test := []int{9, 3, 5, 1, 8, 2, 7, 4, 6}
+	fmt.Println("Before:", test)
+	SelectionSort(test)
+	fmt.Println("After: ", test)
 }
