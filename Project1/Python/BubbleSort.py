@@ -1,21 +1,21 @@
 """
- Name: Alex Bryant
- ID: 2
- Professor: Dr. Dai
- Course: CS416 - Software Engineering
- Date: Feb 19, 2026
+Name: Alex Bryant
+ID: 2
+Professor: Dr. Dai
+Course: CS416 - Software Engineering
+Date: Feb 19, 2026
 
- File: BubbleSort.py
-
- """
-
+File: BubbleSort.py
+"""
 
 def bubble_sort(arr):
-	n = len(arr)
-	for i in range(n):
-		for j in range(0, n-i-1):
-			if arr[j] > arr[j+1]:
-				arr[j], arr[j+1] = arr[j+1], arr[j]
-	return arr
+    n = len(arr)
+    for i in range(n):
+        for j in range(0, n-i-1):
+            if arr[j] > arr[j+1]:
+                arr[j], arr[j+1] = arr[j+1], arr[j]
+    return arr
 
-print(bubble_sort([64, 34, 25, 12, 22, 11, 90]))
+arr = [64, 34, 25, 12, 22, 11, 90]
+print("Sample Input: ", arr)
+print("Sample Output: ", bubble_sort(arr))
