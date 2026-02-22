@@ -1,13 +1,12 @@
 """
- Name: Alex Bryant
- ID: 2
- Professor: Dr. Dai
- Course: CS416 - Software Engineering
- Date: Feb 19, 2026
+Name: Alex Bryant
+ID: 2
+Professor: Dr. Dai
+Course: CS416 - Software Engineering
+Date: Feb 19, 2026
 
- File: SelectionSort.py
-
- """
+File: SelectionSort.py
+"""
 
 def selection_sort(arr):
     for i in range(len(arr)):
@@ -18,4 +17,6 @@ def selection_sort(arr):
         arr[i], arr[min_idx] = arr[min_idx], arr[i]
     return arr
 
-print(selection_sort([64, 34, 25, 12, 22, 11, 90]))
+arr = [64, 34, 25, 12, 22, 11, 90]
+print("Sample Input: ", arr)
+print("Sample Output: ", selection_sort(arr))
