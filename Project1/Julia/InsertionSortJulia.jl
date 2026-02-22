@@ -43,3 +43,4 @@ println("Sample Input:  ", arr)
 
 sorted_arr = insertion_sort(arr)   # čuvamo rezultat u novom nizu
 println("Sorted Output: ", sorted_arr)
+end
