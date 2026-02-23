@@ -92,13 +92,13 @@ JAVA_METHODS = {
     "merge": "mergeSort",
 }
 
-# Go function names (camelCase, matching Go conventions)
+# Go function names (PascalCase exported functions)
 GO_FUNCS = {
-    "bubble": "bubbleSort",
-    "insertion": "insertionSort",
-    "selection": "selectionSort",
-    "quick": "quickSort",
-    "merge": "mergeSort",
+    "bubble": "BubbleSort",
+    "insertion": "InsertionSort",
+    "selection": "SelectionSort",
+    "quick": "QuickSort",
+    "merge": "MergeSort",
 }
 
 
@@ -333,7 +333,18 @@ def run_go(algorithm, arr):
     func_defs = source[:main_idx]
     arr_literal = ", ".join(str(x) for x in arr)
 
-    new_main = f"""\
+    # MergeSort returns a new slice; the others sort in-place
+    if algorithm == "merge":
+        new_main = f"""\
+func main() {{
+\tnumbers := []int{{{arr_literal}}}
+\tfmt.Println("Unsorted:", numbers)
+\tsorted := {func_name}(numbers)
+\tfmt.Println("Sorted:  ", sorted)
+}}
+"""
+    else:
+        new_main = f"""\
 func main() {{
 \tnumbers := []int{{{arr_literal}}}
 \tfmt.Println("Unsorted:", numbers)
