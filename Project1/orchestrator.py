@@ -16,6 +16,7 @@ import sys
 import os
 import tempfile
 import shutil
+import time
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -387,7 +388,9 @@ def run_sort(language, algorithm, arr):
             print("The implementation for this language/algorithm has not been added yet.")
             return 1
 
+    start = time.perf_counter()
     result = runner(algorithm, arr)
+    elapsed = time.perf_counter() - start
 
     if result.returncode != 0:
         print("--- ERROR ---")
@@ -395,6 +398,8 @@ def run_sort(language, algorithm, arr):
     else:
         print("--- Output ---")
         print(result.stdout.strip())
+
+    print(f"\nTime: {elapsed:.4f}s")
 
     return result.returncode
 
