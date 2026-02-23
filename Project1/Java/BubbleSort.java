@@ -69,7 +69,7 @@ public class BubbleSort {
 
         System.out.println("Sample Input:  " + Arrays.toString(data));
 
-        // Sort using Insertion Sort
+        // Sort using Bubble Sort
         bubbleSort(data);
 
         // Display sorted result
