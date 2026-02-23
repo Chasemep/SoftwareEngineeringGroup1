@@ -67,9 +67,13 @@ public class BubbleSort {
     public static void main(String[] args) {
         int[] data = {7, 2, 9, 1, 5, 3};
 
-        System.out.println("Before: " + Arrays.toString(data));
+        System.out.println("Sample Input:  " + Arrays.toString(data));
+
+        // Sort using Bubble Sort
         bubbleSort(data);
-        System.out.println("After:  " + Arrays.toString(data));
+
+        // Display sorted result
+        System.out.println("Sorted Output: " + Arrays.toString(data));
     }
 }
 
