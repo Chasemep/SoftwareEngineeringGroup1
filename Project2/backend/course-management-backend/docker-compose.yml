@@ -1,0 +1,43 @@
+services:
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: rootsecret
+      MYSQL_DATABASE: coursedb
+      MYSQL_USER: courseuser
+      MYSQL_PASSWORD: coursepass
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - course-net
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      MYSQL_HOST: db
+      MYSQL_PORT: 3306
+      MYSQL_DB: coursedb
+      MYSQL_USER: courseuser
+      MYSQL_PASSWORD: coursepass
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - course-net
+
+volumes:
+  mysql-data:
+
+networks:
+  course-net:
+    driver: bridge
