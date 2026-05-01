@@ -1,0 +1,90 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# PNW Student Life Event Management System — Docker Compose
+# ═══════════════════════════════════════════════════════════════════════════════
+#
+# Services:
+#   mysql    — MySQL 8.0 database (schema + seed applied on first run)
+#   backend  — Node.js / Express REST API  (port 3001)
+#   frontend — React (Vite build) served via Nginx  (port 3000)
+#   adminer  — Web-based DB viewer [optional]  (port 8081)
+#
+# Usage:
+#   docker compose up --build        # first run (builds images, seeds DB)
+#   docker compose up -d             # detached mode after first build
+#   docker compose down -v           # tear down + remove volumes
+# ═══════════════════════════════════════════════════════════════════════════════
+
+services:
+
+  # ─── MySQL 8.0 ───────────────────────────────────────────────────────────────
+  mysql:
+    image: mysql:8.0
+    container_name: pnw_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: rootsecret
+      MYSQL_DATABASE: pnw_events
+      MYSQL_USER: pnwuser
+      MYSQL_PASSWORD: pnwpass
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      # Init scripts run in alphabetical order on first startup
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+      - ./database/seed.sql:/docker-entrypoint-initdb.d/02-seed.sql:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "pnwuser", "--password=pnwpass"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+  # ─── Node.js / Express API ───────────────────────────────────────────────────
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: pnw_backend
+    restart: unless-stopped
+    environment:
+      PORT: 3001
+      FRONTEND_URL: http://localhost:3000
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: pnw_events
+      DB_USER: pnwuser
+      DB_PASSWORD: pnwpass
+    ports:
+      - "3001:3001"
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  # ─── React Frontend (Nginx) ───────────────────────────────────────────────────
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: pnw_frontend
+    restart: unless-stopped
+    environment:
+      # Passed as build arg — baked into the static bundle at build time
+      VITE_API_BASE_URL: http://localhost:3001
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
+  # ─── Adminer (optional DB viewer) ────────────────────────────────────────────
+  adminer:
+    image: adminer:4
+    container_name: pnw_adminer
+    restart: unless-stopped
+    ports:
+      - "8081:8080"
+    depends_on:
+      - mysql
+
+volumes:
+  mysql_data:
